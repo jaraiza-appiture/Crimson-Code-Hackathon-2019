@@ -27,17 +27,15 @@ try:
             print("DC = %d", i)
             p.ChangeDutyCycle(i)
             if i == 95:
-                time.sleep(5)
                 p.stop()
             else:
                 time.sleep(1)
-            p.start(i)
 
 except KeyboardInterrupt:
-    pass
+    print("hello")
+    p.ChangeDutyCycle(95)
+    p.stop()
+    GPIO.cleanup()
 
-print("hello")
-p.ChangeDutyCycle(95)
-p.stop()
-GPIO.cleanup()
+
 
