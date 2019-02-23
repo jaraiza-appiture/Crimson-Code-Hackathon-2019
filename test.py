@@ -35,6 +35,7 @@ try:
         p.ChangeDutyCycle(12.5)  # turn towards 180 degree
         time.sleep(1)  # sleep 1 second
         p.ChangeDutyCycle(0)  # no Pulse to servos
+        break
 
 except KeyboardInterrupt:
     p.ChangeDutyCycle(0)
