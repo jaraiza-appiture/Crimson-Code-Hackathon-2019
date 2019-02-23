@@ -14,7 +14,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(12, GPIO.OUT)
 
 # PWM instance associated GPIO Pin 12 at 50Hz
-p = GPIO.PWM(12, 50)
+p = GPIO.PWM(12, 10)
 
 p.start(0)
 
