@@ -2,22 +2,26 @@
 import RPi.GPIO as GPIO
 import time
 
-# ********** initiate System *****************
-# The following program will control the servo making it move
-# to its neutral position (90 degrees), wait 1 second and then move to its 0 degrees,
-# wait 1 second and finally move to its 180 degrees.
+# Constant values
+STOPVAL = 95 # Duty Cycle that stops servo
+PWM0 = 12
+PWM1 = 33
+FREQ = 100 # 100Hz
+
+# variables
+i = 0
 
 # setup pin number based off board numbering
 GPIO.setmode(GPIO.BOARD)
 
-# setup pin 12 to be an output pin for PWM
-GPIO.setup(12, GPIO.OUT)
+# setup pin 12 to be an output pin for PWM0
+GPIO.setup(PWM0, GPIO.OUT)
 
 # PWM instance associated GPIO Pin 12 at 50Hz
-p = GPIO.PWM(12, 100)
+p = GPIO.PWM(PWM0, FREQ)
 
-i = 0
-p.stop(i)
+# start pulse at Duty cycle=i
+p.start(i)
 
 # ********************* Main Code *****************
 try:
@@ -29,4 +33,3 @@ try:
 except KeyboardInterrupt:
     p.stop()
     GPIO.cleanup()
-
