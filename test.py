@@ -16,6 +16,8 @@ GPIO.setup(12, GPIO.OUT)
 # PWM instance associated GPIO Pin 12 at 50Hz
 p = GPIO.PWM(12, 50)
 
+p.start(2.5)
+
 # ********************* Main Code *****************
 try:
     while True:
@@ -26,6 +28,7 @@ try:
         p.ChangeDutyCycle(12.5)  # turn towards 180 degree
         time.sleep(1)  # sleep 1 second
         p.ChangeDutyCycle(0)  # no Pulse to servo
+
 except KeyboardInterrupt:
     print("ctr-c pressed")
     p.ChangeDutyCycle(0)
