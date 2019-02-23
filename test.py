@@ -14,7 +14,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(12, GPIO.OUT)
 
 # PWM instance associated GPIO Pin 12 at 50Hz
-p = GPIO.PWM(12, 10)
+p = GPIO.PWM(12, 20)
 
 p.start(0)
 
@@ -32,7 +32,6 @@ try:
         time.sleep(1)
 except KeyboardInterrupt:
     p.ChangeDutyCycle(20.5)
-    time.sleep(5)
     p.stop()
     GPIO.cleanup()
 
