@@ -22,9 +22,9 @@ p.start(0)
 try:
     while True:
         p.ChangeDutyCycle(5)
-        time.sleep(1)
 except KeyboardInterrupt:
     p.ChangeDutyCycle(20.5)
+    time.sleep(5)
     p.stop()
     GPIO.cleanup()
 
