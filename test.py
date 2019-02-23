@@ -18,18 +18,15 @@ p = GPIO.PWM(12, 100)
 
 p.start(0)
 
+i = 0
+
 # ********************* Main Code *****************
 try:
     while True:
-        print("DC = 5")
-        p.ChangeDutyCycle(5)
-        time.sleep(5)
-        print("DC = 20.5")
-        p.ChangeDutyCycle(20.5)
-        time.sleep(5)
-        print("DC = 11.5")
-        p.ChangeDutyCycle(11.5)
-        time.sleep(5)
+        for i in range(0, 101, 5):
+            print("DC = %d", i)
+            p.ChangeDutyCycle(i)
+            time.sleep(2)
 except KeyboardInterrupt:
     p.stop()
     GPIO.cleanup()
