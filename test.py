@@ -37,6 +37,5 @@ try:
         p.ChangeDutyCycle(0)  # no Pulse to servos
 
 except KeyboardInterrupt:
-    p.ChangeDutyCycle(7.5)
     p.stop()
     GPIO.cleanup()
