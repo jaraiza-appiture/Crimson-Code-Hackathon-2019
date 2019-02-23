@@ -35,10 +35,16 @@ try:
         p.ChangeDutyCycle(12.5)  # turn towards 180 degree
         time.sleep(1)  # sleep 1 second
         p.ChangeDutyCycle(0)  # no Pulse to servos
+<<<<<<< HEAD
         break
 
 except KeyboardInterrupt:
     print("ctr-c pressed")
     p.ChangeDutyCycle(0)
+=======
+        time.sleep(1)
+
+except KeyboardInterrupt:
+>>>>>>> 1cddde1b47823f36fc1639f1f6c5af7c17a92d09
     p.stop()
     GPIO.cleanup()
