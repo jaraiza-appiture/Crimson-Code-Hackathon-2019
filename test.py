@@ -28,7 +28,11 @@ try:
             p.ChangeDutyCycle(i)
             if i == 95:
                 time.sleep(5)
-            time.sleep(1)
+                p.stop()
+            else:
+                time.sleep(1)
+            p.start(i)
+
 except KeyboardInterrupt:
     pass
 
