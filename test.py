@@ -30,5 +30,5 @@ try:
 except KeyboardInterrupt:
     p.ChangeDutyCycle(95)
     p.stop()
-    GPIO.cleanup()
 
+#GPIO.cleanup()
