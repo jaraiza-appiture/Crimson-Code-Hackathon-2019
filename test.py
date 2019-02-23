@@ -21,9 +21,10 @@ p.start(7.5)
 # ********************* Main Code *****************
 try:
     while True:
+        p.ChangeDutyCycle(10)
+        time.sleep(1)
         p.ChangeDutyCycle(20.5)
         time.sleep(1)
-        p.ChangeDutyCycle(0)
 except KeyboardInterrupt:
     print("ctr-c pressed\n")
     p.stop()
