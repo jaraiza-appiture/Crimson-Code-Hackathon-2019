@@ -28,7 +28,5 @@ try:
             time.sleep(1.5)
 except KeyboardInterrupt:
     p.stop()
-
-finally:
     GPIO.cleanup()
 
