@@ -28,6 +28,7 @@ try:
             p.ChangeDutyCycle(i)
             if i == 95:
                 p.stop()
+                time.sleep(5)
             else:
                 time.sleep(1)
 
