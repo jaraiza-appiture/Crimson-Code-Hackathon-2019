@@ -23,15 +23,17 @@ p.start(7.5)
 try:
     while True:
         p.ChangeDutyCycle(2.5)
-        time.sleep(5)
+        time.sleep(3)
         p.ChangeDutyCycle(5)
+        time.sleep(3)
+        p.ChangeDutyCycle(0)
         time.sleep(5)
-        p.ChangeDutyCycle(7.5)
         print("repeat")
 
 except KeyboardInterrupt:
     print("ctr-c pressed\n")
-    p.ChangeDutyCycle(7.5)
+    p.ChangeDutyCycle(0)
+    time.sleep(5)
     p.stop()
     GPIO.cleanup()
 
