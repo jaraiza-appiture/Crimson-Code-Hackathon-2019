@@ -23,7 +23,7 @@ i = 0
 # ********************* Main Code *****************
 try:
     while True:
-        for i in range(85, 96, 1):
+        for i in range(93, 96, 1):
             print("DC = %d", i)
             p.ChangeDutyCycle(i)
             time.sleep(3)
