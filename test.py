@@ -33,9 +33,8 @@ try:
         time.sleep(1)  # sleep 1 second
         p.ChangeDutyCycle(0)  # no Pulse to servos
 
-
 except KeyboardInterrupt:
-    print("ctr-c pressed")
+    print("ctr-c pressed\n")
     p.ChangeDutyCycle(0)
     p.stop()
     GPIO.cleanup()
