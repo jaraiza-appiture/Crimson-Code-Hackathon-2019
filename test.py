@@ -21,11 +21,15 @@ p.start(0)
 # ********************* Main Code *****************
 try:
     while True:
+        print("DC = 5")
         p.ChangeDutyCycle(5)
-        time.sleep(2)
+        time.sleep(1)
+        print("DC = 20.5")
         p.ChangeDutyCycle(20.5)
-        time.sleep(2)
+        time.sleep(1)
+        print("DC = 11.5")
         p.ChangeDutyCycle(11.5)
+        time.sleep(1)
 except KeyboardInterrupt:
     p.ChangeDutyCycle(20.5)
     time.sleep(5)
