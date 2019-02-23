@@ -16,28 +16,22 @@ GPIO.setup(12, GPIO.OUT)
 # PWM instance associated GPIO Pin 12 at 50Hz
 p = GPIO.PWM(12, 50)
 
-# Calculate duty cycle
-dc = 1.5 / 20
+p.start(7.5)
 
 
 # ********************* Main Code *****************
 try:
     while True:
-        p.start(0)
-        p.ChangeDutyCycle(7.5)  # turn towards 90 degree
-        time.sleep(1)  # sleep 1 second
-        p.ChangeDutyCycle(2.5)  # turn towards 0 degree
-        time.sleep(1)  # sleep 1 second
-        p.ChangeDutyCycle(12.5)  # turn towards 180 degree
-        time.sleep(1)  # sleep 1 second
-        p.ChangeDutyCycle(0)  # no Pulse to servos
-        time.sleep(1)
-        p.stop()
-        time.sleep(2)
+        p.ChangeDutyCycle(2.5)
+        time.sleep(5)
+        p.ChangeDutyCycle(5)
+        time.sleep(5)
+        p.ChangeDutyCycle(7.5)
+        print("repeat")
 
 except KeyboardInterrupt:
     print("ctr-c pressed\n")
-    p.ChangeDutyCycle(0)
+    p.ChangeDutyCycle(7.5)
     p.stop()
     GPIO.cleanup()
 
