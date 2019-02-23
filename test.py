@@ -14,7 +14,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(12, GPIO.OUT)
 
 # PWM instance associated GPIO Pin 12 at 50Hz
-p = GPIO.PWM(12, 25)
+p = GPIO.PWM(12, 50)
 
 p.start(7.5)
 i = 0
@@ -23,6 +23,8 @@ i = 0
 try:
     while True:
         p.ChangeDutyCycle(20.5)
+        time.sleep(1)
+        p.ChangeDutyCycle(0)
 except KeyboardInterrupt:
     print("ctr-c pressed\n")
     p.stop()
