@@ -38,6 +38,7 @@ try:
         break
 
 except KeyboardInterrupt:
+    print("ctr-c pressed")
     p.ChangeDutyCycle(0)
     p.stop()
     GPIO.cleanup()
