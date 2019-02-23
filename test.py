@@ -17,23 +17,14 @@ GPIO.setup(12, GPIO.OUT)
 p = GPIO.PWM(12, 25)
 
 p.start(7.5)
-
+i = 0
 
 # ********************* Main Code *****************
 try:
     while True:
-        p.ChangeDutyCycle(2.5)
-        time.sleep(3)
-        p.ChangeDutyCycle(5)
-        time.sleep(3)
-        p.ChangeDutyCycle(0)
-        time.sleep(5)
-        print("repeat")
-
+        p.ChangeDutyCycle(20.5)
 except KeyboardInterrupt:
     print("ctr-c pressed\n")
-    p.ChangeDutyCycle(0)
-    time.sleep(5)
     p.stop()
     GPIO.cleanup()
 
