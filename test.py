@@ -23,12 +23,10 @@ i = 0
 # ********************* Main Code *****************
 try:
     while True:
-        p.ChangeDutyCycle(20.5)
-        time.sleep(2)
-        p.ChangeDutyCycle(90)
-        time.sleep(2)
-        p.ChangeDutyCycle(100)
-        time.sleep(2)
+        for i in range(80, 101, 2):
+            print("DC = %d", i)
+            p.ChangeDutyCycle(i)
+            time.sleep(5)
 except KeyboardInterrupt:
     p.stop()
     GPIO.cleanup()
