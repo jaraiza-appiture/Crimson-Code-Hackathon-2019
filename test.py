@@ -37,4 +37,5 @@ except KeyboardInterrupt:
     print("ctr-c pressed\n")
     p.ChangeDutyCycle(0)
     p.stop()
-    GPIO.cleanup()
+
+GPIO.cleanup()
