@@ -23,15 +23,14 @@ try:
     while True:
         print("DC = 5")
         p.ChangeDutyCycle(5)
-        time.sleep(1)
+        time.sleep(0.5)
         print("DC = 20.5")
         p.ChangeDutyCycle(20.5)
-        time.sleep(1)
+        time.sleep(0.5)
         print("DC = 11.5")
         p.ChangeDutyCycle(11.5)
-        time.sleep(1)
+        time.sleep(0.5)
 except KeyboardInterrupt:
-    p.ChangeDutyCycle(20.5)
     p.stop()
     GPIO.cleanup()
 
