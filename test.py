@@ -7,8 +7,8 @@ pi = pigpio.pi()
 
 pi.set_servo_pulsewidth(13, 1400)
 
-for i in range(500, 2001, 100):
-    print ("PW = %d", i)
+for i in range(1300, 1400, 10):
+    print ("PW = ", i)
     pi.set_servo_pulsewidth(13, i)
     time.sleep(2)
 
