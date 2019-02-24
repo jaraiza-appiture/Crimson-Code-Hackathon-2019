@@ -19,11 +19,8 @@ def connection(self):
     p0 = GPIO.PWM(PWM0, FREQ)
     p1 = GPIO.PWM(PWM1, FREQ)
 
-    # start pulse at Duty cycle=i
-    p0.start(0)
-    p1.start(0)
-
 # variables
+
 i = 0
 
 # setup pin number based off board numbering
