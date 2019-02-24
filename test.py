@@ -6,7 +6,7 @@ import time
 STOP = 95  # Duty Cycle that stops servo
 PWM0 = 12
 PWM1 = 33
-FREQ = 100  # 100Hz
+FREQ = 1000  # 100Hz
 CCW = 80
 CW = 85
 
@@ -34,7 +34,6 @@ try:
         print("enter direction:")
         x = input()
 
-        GPIO.cleanup()
         if x == "left":
             p0.ChangeDutyCycle(7.5)
             p1.ChangeDutyCycle(7.5)

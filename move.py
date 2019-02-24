@@ -19,5 +19,5 @@ try:
             sleep(pause_time)
 
 finally:
-wiringpi.pwmWrite(18, 0)  # switch PWM output to 0
-wiringpi.pinMode(18, 0)  # GPIO18 to input
+    wiringpi.pwmWrite(18, 0)  # switch PWM output to 0
+    wiringpi.pinMode(18, 0)  # GPIO18 to input
