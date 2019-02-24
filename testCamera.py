@@ -5,6 +5,7 @@ from imutils.video import FPS
 import imutils
 import face_recognition
 import cv2
+import pickle
 import time
 
 def initialize_camera():
@@ -26,6 +27,8 @@ def run_facial_recogniton():
         profile -- contains information related to the user (e.g., phone
                 number)
     """
+    data = pickle.loads(open('./encodings.pickle', "rb").read())
+    detector = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
     vs, fps = initialize_camera()
 
     FramesProcessed = 0
@@ -63,7 +66,7 @@ def run_facial_recogniton():
         for encoding in encodings:
             # attempt to match each face in the input image to our known
             # encodings
-            matches = face_recognition.compare_faces(data["encodings"],
+            matches = face_recognition.compare_faces(data['encodings'],
                 encoding)
             name = "Unknown"
 
