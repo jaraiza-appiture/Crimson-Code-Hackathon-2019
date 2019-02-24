@@ -17,8 +17,8 @@ try:
         # distance_y = sys.argv[3]
 
         if direction == "f":
-            pi.set_servo_pulsewidth(18, 1480)
-            pi.set_servo_pulsewidth(13, 1400)
+            pi.set_servo_pulsewidth(18, 1520)
+            pi.set_servo_pulsewidth(13, 1360)
         elif direction == "l":
             pi.set_servo_pulsewidth(18, 1500)
             pi.set_servo_pulsewidth(13, 1370)
