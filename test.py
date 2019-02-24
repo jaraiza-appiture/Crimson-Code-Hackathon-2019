@@ -4,20 +4,10 @@ import time
 
 pi = pigpio.pi()
 
-pi.set_PWM_dutycycle(18, 0)
-pi.set_PWM_dutycycle(13, 0)
-time.sleep(2)
-
-
-pi.set_PWM_dutycycle(18, 64)
-pi.set_PWM_dutycycle(13, 64)
-time.sleep(2)
-
-
-pi.set_PWM_dutycycle(18, 0)
-pi.set_PWM_dutycycle(13, 0)
-pi.set_servo_pulsewidth(18, 0)
 pi.set_servo_pulsewidth(13, 0)
-time.sleep(2)
+time.sleep(1)
+
+pi.set_servo_pulsewidth(13, 1000)
+pi.set_servo_pulsewidth(12, 2000)
 
 pi.stop()
