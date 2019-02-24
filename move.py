@@ -14,7 +14,7 @@ pi.set_PWM_dutycycle(13, 64)
 
 try:
     while True:
-        direction = input()
+        direction = input('enter direction:')
         # sys.argv[1]
         # distance_x = sys.argv[2]
         # distance_y = sys.argv[3]
