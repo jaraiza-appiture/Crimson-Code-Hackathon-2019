@@ -8,6 +8,8 @@ import cv2
 import pickle
 import time
 
+CENTER = (400,250)
+RESOLUTION = (800,500)
 def initialize_camera():
     # start the FPS counter
     # initialize the video stream and allow the camera sensor to warm up
@@ -31,7 +33,7 @@ def run_facial_recogniton():
     detector = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
     vs, fps = initialize_camera()
 
-    FramesProcessed = 0
+    FramesProcessed = 1
     OpenDoor = False
     ThreshCount = {}
 
@@ -40,8 +42,8 @@ def run_facial_recogniton():
         # grab the frame from the threaded video stream and resize it
         # to 500px (to speedup processing)
         frame = vs.read()
-        frame = imutils.resize(frame, width=500)
-
+        frame = cv2.resize(frame,RESOLUTION,cv2.INTER_AREA)
+		
         # convert the input frame from (1) BGR to grayscale (for face
         # detection) and (2) from BGR to RGB (for face recognition)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -51,13 +53,19 @@ def run_facial_recogniton():
         rects = detector.detectMultiScale(gray, scaleFactor=1.1, 
             minNeighbors=5, minSize=(30, 30),
             flags=cv2.CASCADE_SCALE_IMAGE)
-
+        #print ("rects: ", rects)
         # OpenCV returns bounding box coordinates in (x, y, w, h) order
         # but we need them in (top, right, bottom, left) order, so we
         # need to do a bit of reordering
+        boxes=[]
+        for (x, y, w, h) in rects:
+            #print("x:" ,x)
+            #print("y:" ,y)
+            #print("w:" ,w)
+            #print("h:" ,h)
 
-        boxes = [(y, x + w, y + h, x) for (x, y, w, h) in rects]
-
+            boxes.append((y, x + w, y + h, x))
+        #print("boxes:" ,boxes)
         # compute the facial embeddings for each face bounding box
         encodings = face_recognition.face_encodings(rgb, boxes)
         names = []
@@ -95,19 +103,23 @@ def run_facial_recogniton():
         # loop over the recognized faces
         for ((top, right, bottom, left), name) in zip(boxes, names):
             # draw the predicted face name on the image
+            cv2.circle(frame,CENTER,5,(255,0,0),2)
+            centerpt1 = ((left+right)//2,(bottom+top)//2)
+            cv2.circle(frame,centerpt1,5,(0,255,0),2)
             cv2.rectangle(frame, (left, top), (right, bottom),(0, 255, 0), 2)
             y = top - 15 if top - 15 > 15 else top + 15
             cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,0.75, (0, 255, 0), 2)
+            Area = (right-left)*(bottom-top)
+            cv2.putText(frame, 'AREA: %d'%(Area), (left, bottom+20), cv2.FONT_HERSHEY_SIMPLEX,0.75, (0, 255, 0), 2)
 
+        #for name in names:
+            #ThreshCount[name] = ThreshCount.get(name, 0) + 1
 
-        for name in names:
-            ThreshCount[name] = ThreshCount.get(name, 0) + 1
-
-        NamesFound = []
-        for name, ocur in ThreshCount.items():
-            if ocur > 5:
-                NamesFound.append(name)
-                OpenDoor = True
+        #NamesFound = []
+        #for name, ocur in ThreshCount.items():
+            #if ocur > 5:
+                #NamesFound.append(name)
+                #OpenDoor = True
 
         # display the image to our screen
         cv2.imshow("Frame", frame)
@@ -115,9 +127,6 @@ def run_facial_recogniton():
 
         # if the `q` key was pressed, break from the loop
         if key == ord("q"):
-            break
-
-        if OpenDoor:
             break
 
         # update the FPS counter
