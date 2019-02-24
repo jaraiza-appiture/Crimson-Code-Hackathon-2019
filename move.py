@@ -5,12 +5,9 @@ import sys
 pi = pigpio.pi()
 
 # PWM 1/4 on
-pi.set_PWM_dutycycle(18, 64)
-pi.set_PWM_dutycycle(13, 64)
+pi.set_PWM_dutycycle(18, 20)
+pi.set_PWM_dutycycle(13, 20)
 
-#if len(sys.argv) < 2:
- #   print("ERROR: no values given")
-  #  exit()
 
 try:
     while True:
@@ -19,19 +16,19 @@ try:
         # distance_x = sys.argv[2]
         # distance_y = sys.argv[3]
 
-        if direction == "FORWARD":
+        if direction == "f":
             pi.set_servo_pulsewidth(18, 1800)
             pi.set_servo_pulsewidth(13, 1000)
-        elif direction == "BACKWARD":
+        elif direction == "b":
             pi.set_servo_pulsewidth(18, 1000)
             pi.set_servo_pulsewidth(13, 1800)
-        elif direction == "LEFT":
+        elif direction == "l":
             pi.set_servo_pulsewidth(18, 1800)
             pi.set_servo_pulsewidth(13, 1800)
-        elif direction == "RIGHT":
+        elif direction == "r":
             pi.set_servo_pulsewidth(18, 1000)
             pi.set_servo_pulsewidth(13, 1000)
-        elif direction == "STOP":
+        elif direction == "s":
             pi.set_servo_pulsewidth(18, 1500)
             pi.set_servo_pulsewidth(13, 1370)
         else:
