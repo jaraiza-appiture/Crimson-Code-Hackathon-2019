@@ -47,7 +47,7 @@ try:
             p0.ChangeDutyCycle(CW)
             # p1.ChangeDutyCycle(CCW)
         elif x == "fix":
-            for i in range(0, 5, 0.5):
+            for i in range(3, 16, 1):
                 print("DC = %d", i)
                 p1.ChangeDutyCycle(i)
                 time.sleep(1)
