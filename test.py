@@ -55,6 +55,6 @@ try:
             p1.ChangeDutyCycle(14.55)
 
 except KeyboardInterrupt:
-    p0.ChangeDutyCycle(94.5)
+    p0.ChangeDutyCycle(0)
     p1.ChangeDutyCycle(14.55)
     GPIO.cleanup()
