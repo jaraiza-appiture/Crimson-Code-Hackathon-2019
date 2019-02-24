@@ -8,8 +8,12 @@ import cv2
 import pickle
 import time
 
-CENTER = (400,250)
-RESOLUTION = (800,500)
+AREATHRESH = 7000
+DISTAREATHRESH = 12000
+CENTER = (500,250)
+RESOLUTION = (1000,500)
+OWNER = "SamraReduced"
+THRESHOLD= 100
 def initialize_camera():
     # start the FPS counter
     # initialize the video stream and allow the camera sensor to warm up
@@ -18,7 +22,22 @@ def initialize_camera():
     time.sleep(0.5)
     fps = FPS().start()
     return vs, fps
-
+    
+def movement(centerEntity,areaEntity):
+	#if face is left of center of the frame
+	#entityChosen = ((t,r,b,l),n,(r-l)*(b-t))
+	diffFaceCenter = centerEntity[0] - CENTER[0]
+	print("diff: ", diffFaceCenter)
+	if abs(diffFaceCenter) > THRESHOLD:
+		if diffFaceCenter < 0:
+			print ("moving left")
+		elif diffFaceCenter >0:
+			print ("moving right")
+	elif areaEntity < DISTAREATHRESH:
+		print('moving forward')
+	else:
+		print('stopped')
+			
 def run_facial_recogniton():
     """
         Responds to user-input, typically speech text, by telling a joke.
@@ -33,12 +52,9 @@ def run_facial_recogniton():
     detector = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
     vs, fps = initialize_camera()
 
-    FramesProcessed = 1
-    OpenDoor = False
-    ThreshCount = {}
 
     # loop over frames from the video file stream
-    while True:
+    while True: # major loop
         # grab the frame from the threaded video stream and resize it
         # to 500px (to speedup processing)
         frame = vs.read()
@@ -59,12 +75,11 @@ def run_facial_recogniton():
         # need to do a bit of reordering
         boxes=[]
         for (x, y, w, h) in rects:
-            #print("x:" ,x)
-            #print("y:" ,y)
-            #print("w:" ,w)
-            #print("h:" ,h)
-
-            boxes.append((y, x + w, y + h, x))
+			# calculate bounding box area
+			# if area greater than AREATHRESH add bounding box
+			# this helps improve facial detection accuracy
+            if w*h > AREATHRESH:
+               boxes.append((y, x + w, y + h, x))
         #print("boxes:" ,boxes)
         # compute the facial embeddings for each face bounding box
         encodings = face_recognition.face_encodings(rgb, boxes)
@@ -97,29 +112,46 @@ def run_facial_recogniton():
                 # of votes (note: in the event of an unlikely tie Python
                 # will select first entry in the dictionary)
                 name = max(counts, key=counts.get)
-            # update the list of names
-            names.append(name)
+                # update the list of names
+                names.append(name)
+        similarEntity = []
+        CandidateEntity = None
+        #determine the entity to follow 
+        if not names:
+           cv2.imshow("Frame", frame)
+           key = cv2.waitKey(1) & 0xFF
+           fps.update()
+           continue
+        if OWNER in names:
+            similarEntity = [((t,r,b,l),n,(r-l)*(b-t)) for ((t,r,b,l),n)  in zip(boxes, names) if OWNER == n]
+            simEnt_sorted = sorted(similarEntity,key=lambda x: x[-1],reverse=True)
+            CandidateEntity = simEnt_sorted[0]	
+        else:
+            similarEntity = [((t,r,b,l),n,(r-l)*(b-t)) for ((t,r,b,l),n)  in zip(boxes, names)]
+            simEnt_sorted = sorted(similarEntity,key=lambda x: x[-1],reverse=True)
+            CandidateEntity = simEnt_sorted[0] # (dimensionsTup, name, area)
+        t,r,b,l = CandidateEntity[0]
+        centerEntity = ((l+r)//2,(b+t)//2)
+        movement(centerEntity,CandidateEntity[-1])
 
         # loop over the recognized faces
-        for ((top, right, bottom, left), name) in zip(boxes, names):
-            # draw the predicted face name on the image
-            cv2.circle(frame,CENTER,5,(255,0,0),2)
-            centerpt1 = ((left+right)//2,(bottom+top)//2)
-            cv2.circle(frame,centerpt1,5,(0,255,0),2)
-            cv2.rectangle(frame, (left, top), (right, bottom),(0, 255, 0), 2)
-            y = top - 15 if top - 15 > 15 else top + 15
-            cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,0.75, (0, 255, 0), 2)
-            Area = (right-left)*(bottom-top)
-            cv2.putText(frame, 'AREA: %d'%(Area), (left, bottom+20), cv2.FONT_HERSHEY_SIMPLEX,0.75, (0, 255, 0), 2)
-
-        #for name in names:
-            #ThreshCount[name] = ThreshCount.get(name, 0) + 1
-
-        #NamesFound = []
-        #for name, ocur in ThreshCount.items():
-            #if ocur > 5:
-                #NamesFound.append(name)
-                #OpenDoor = True
+        #for ((top, right, bottom, left), name) in zip(boxes, names):
+            ## draw the predicted face name on the image
+            ## Area = 
+            ## if Area < AREATHRESH:
+               ## continue
+        cv2.circle(frame,CENTER,5,(255,0,0),2)
+            #centerpt1 = ((left+right)//2,(bottom+top)//2)
+        cv2.circle(frame,centerEntity,5,(255,0,0),2)
+            #if name == OWNER:
+               #color = (255,0,0)
+            #else:
+               #color = (0,255,0)
+        cv2.rectangle(frame, (l, t), (r, b),(255,0,0), 2)
+        y = t - 15 if t - 15 > 15 else t + 15
+        cv2.putText(frame, CandidateEntity[1], (l, y), cv2.FONT_HERSHEY_SIMPLEX,0.75, (255,0,0), 2)
+            
+            #cv2.putText(frame, 'AREA: %d'%((right-left)*(bottom-top)), (left, bottom+20), cv2.FONT_HERSHEY_SIMPLEX,0.75, color, 2)
 
         # display the image to our screen
         cv2.imshow("Frame", frame)
@@ -131,8 +163,6 @@ def run_facial_recogniton():
 
         # update the FPS counter
         fps.update()
-
-        FramesProcessed +=1
 
     # stop the timer and display FPS information
 
