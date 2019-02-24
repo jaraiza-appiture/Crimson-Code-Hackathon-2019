@@ -7,7 +7,7 @@ STOP = 95 # Duty Cycle that stops servo
 PWM0 = 12
 PWM1 = 33
 FREQ = 100 # 100Hz
-CCW = 50
+CCW = 80
 CW = 85
 
 # variables
@@ -36,25 +36,25 @@ try:
 
         if x == "left":
             p0.ChangeDutyCycle(CCW)
-            p1.ChangeDutyCycle(CW)
+           # p1.ChangeDutyCycle(CW)
         elif x == "right":
             p0.ChangeDutyCycle(CW)
-            p1.ChangeDutyCycle(CCW)
+            # p1.ChangeDutyCycle(CCW)
         elif x == "forward":
             p0.ChangeDutyCycle(CCW)
-            p1.ChangeDutyCycle(CW)
+            # p1.ChangeDutyCycle(CW)
         elif x == "backward":
             p0.ChangeDutyCycle(CW)
-            p1.ChangeDutyCycle(CCW)
+            # p1.ChangeDutyCycle(CCW)
         elif x == "fix":
             p0.stop()
             for i in range(0, 100, 1):
                 print("DC = %d", i)
-                p1.ChangeDutyCycle(i)
+                #p1.ChangeDutyCycle(i)
                 time.sleep(1)
         else:
             p0.ChangeDutyCycle(STOP)
-            p1.stop()
+            # p1.stop()
 
 except KeyboardInterrupt:
     p0.stop()
