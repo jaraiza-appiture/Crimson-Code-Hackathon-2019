@@ -46,6 +46,11 @@ try:
         elif x == "backward":
             p0.ChangeDutyCycle(CW)
             p1.ChangeDutyCycle(CW)
+        elif x == "fix":
+            p0.stop()
+            for i in range(0, 100, 1):
+                p1.ChangeDutyCycle(i)
+                time.sleep(1)
         else:
             p0.ChangeDutyCycle(STOP)
             p1.ChangeDutyCycle(STOP)
