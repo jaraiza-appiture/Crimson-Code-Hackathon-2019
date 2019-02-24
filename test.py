@@ -10,6 +10,19 @@ FREQ = 1000  # 100Hz
 CCW = 80
 CW = 85
 
+
+def connection(self):
+    GPIO.setup(PWM0, GPIO.OUT)
+    GPIO.setup(PWM1, GPIO.OUT)
+
+    # PWM instance associated GPIO Pin 12 and 33 at 100 HZ
+    p0 = GPIO.PWM(PWM0, FREQ)
+    p1 = GPIO.PWM(PWM1, FREQ)
+
+    # start pulse at Duty cycle=i
+    p0.start(0)
+    p1.start(0)
+
 # variables
 i = 0
 
@@ -55,7 +68,11 @@ try:
             p0.ChangeDutyCycle(0)
             p1.ChangeDutyCycle(0)
 
+        GPIO.cleanup()
+        connection()
+
 except KeyboardInterrupt:
     p0.stop()
     p1.stop()
     GPIO.cleanup()
+
