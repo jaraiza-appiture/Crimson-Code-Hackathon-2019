@@ -6,10 +6,7 @@ pi = pigpio.pi()
 
 try:
     while True:
-        direction = input('enter direction:')
-        # sys.argv[1]
-        # distance_x = sys.argv[2]
-        # distance_y = sys.argv[3]
+        direction = sys.argv[1]
 
         if direction == "f":
             pi.set_servo_pulsewidth(18, 1525)
