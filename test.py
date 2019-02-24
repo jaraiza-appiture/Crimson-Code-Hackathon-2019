@@ -48,11 +48,9 @@ try:
             # p1.ChangeDutyCycle(CCW)
         elif x == "fix":
             p0.ChangeDutyCycle(0)
-            time.sleep(5)
-
         else:
-            p0.ChangeDutyCycle(94.55)
-            p1.ChangeDutyCycle(14.55)
+            p0.ChangeDutyCycle(0)
+            p1.ChangeDutyCycle(0)
 
 except KeyboardInterrupt:
     p0.stop()
