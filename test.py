@@ -51,10 +51,10 @@ try:
             time.sleep(5)
 
         else:
-            p0.ChangeDutyCycle(94.5)
+            p0.ChangeDutyCycle(94.55)
             p1.ChangeDutyCycle(14.55)
 
 except KeyboardInterrupt:
-    p0.ChangeDutyCycle(0)
-    p1.ChangeDutyCycle(14.55)
+    p0.stop()
+    p1.stop()
     GPIO.cleanup()
