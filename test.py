@@ -36,25 +36,25 @@ try:
 
         if x == "left":
             p0.ChangeDutyCycle(CCW)
-            p1.ChangeDutyCycle(CW)
+            p1.ChangeDutyCycle(CCW)
         elif x == "right":
             p0.ChangeDutyCycle(CW)
-            p1.ChangeDutyCycle(CCW)
+            p1.ChangeDutyCycle(CW)
         elif x == "forward":
             p0.ChangeDutyCycle(CCW)
-            p1.ChangeDutyCycle(CCW)
+            p1.ChangeDutyCycle(CW)
         elif x == "backward":
             p0.ChangeDutyCycle(CW)
-            p1.ChangeDutyCycle(CW)
+            p1.ChangeDutyCycle(CCW)
         elif x == "fix":
             p0.stop()
             for i in range(0, 100, 1):
-                print("DC = %d\n", i)
+                print("DC = %d", i)
                 p1.ChangeDutyCycle(i)
                 time.sleep(1)
         else:
             p0.ChangeDutyCycle(STOP)
-            p1.ChangeDutyCycle(STOP)
+            p1.ChangeDutyCycle(94)
 
 except KeyboardInterrupt:
     p0.stop()
