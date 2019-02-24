@@ -47,13 +47,13 @@ try:
             p0.ChangeDutyCycle(CW)
             # p1.ChangeDutyCycle(CCW)
         elif x == "fix":
-            for i in range(12, 15, 1):
-                print("DC = %d", i)
-                p1.ChangeDutyCycle(i)
+            # for i in range(12, 15, 1):
+              #  print("DC = %d", i)
+                p1.ChangeDutyCycle(14.5)
                 time.sleep(5)
 
         else:
-            p0.ChangeDutyCycle(STOP)
+            p0.ChangeDutyCycle(94.5)
             p1.ChangeDutyCycle(94.5)
 
 except KeyboardInterrupt:
