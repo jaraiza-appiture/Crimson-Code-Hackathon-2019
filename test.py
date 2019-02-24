@@ -19,6 +19,6 @@ pi.set_servo_pulsewidth(18, 2000)
 time.sleep(1)
 
 print("stop")
-pi.set_servo_pulsewidth(18, 0)
+pi.set_servo_pulsewidth(18, 1)
 time.sleep(1)
 
