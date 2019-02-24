@@ -18,7 +18,7 @@ try:
 
         if direction == "f":
             pi.set_servo_pulsewidth(18, 1480)
-            pi.set_servo_pulsewidth(13, 1360)
+            pi.set_servo_pulsewidth(13, 1400)
         elif direction == "l":
             pi.set_servo_pulsewidth(18, 1500)
             pi.set_servo_pulsewidth(13, 1370)
