@@ -4,6 +4,7 @@ from imutils.video import VideoStream
 from imutils.video import FPS
 import imutils
 import face_recognition
+from move import movepi
 import cv2
 import pickle
 import time
@@ -22,8 +23,8 @@ def initialize_camera():
     time.sleep(0.5)
     fps = FPS().start()
     return vs, fps
-    
-def movement(centerEntity,areaEntity):
+
+def movement(centerEntity,areaEntity,pi):
 	#if face is left of center of the frame
 	#entityChosen = ((t,r,b,l),n,(r-l)*(b-t))
 	diffFaceCenter = centerEntity[0] - CENTER[0]
@@ -31,13 +32,17 @@ def movement(centerEntity,areaEntity):
 	if abs(diffFaceCenter) > THRESHOLD:
 		if diffFaceCenter < 0:
 			print ("moving left")
+            pi.left()
 		elif diffFaceCenter >0:
 			print ("moving right")
+            pi.right()
 	elif areaEntity < DISTAREATHRESH:
 		print('moving forward')
+        pi.forward()
 	else:
 		print('stopped')
-			
+        pi.stop()
+
 def run_facial_recogniton():
     """
         Responds to user-input, typically speech text, by telling a joke.
@@ -51,7 +56,7 @@ def run_facial_recogniton():
     data = pickle.loads(open('./encodings.pickle', "rb").read())
     detector = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
     vs, fps = initialize_camera()
-
+    pi3 = movepi()
 
     # loop over frames from the video file stream
     while True: # major loop
@@ -59,7 +64,7 @@ def run_facial_recogniton():
         # to 500px (to speedup processing)
         frame = vs.read()
         frame = cv2.resize(frame,RESOLUTION,cv2.INTER_AREA)
-		
+
         # convert the input frame from (1) BGR to grayscale (for face
         # detection) and (2) from BGR to RGB (for face recognition)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -132,7 +137,7 @@ def run_facial_recogniton():
             CandidateEntity = simEnt_sorted[0] # (dimensionsTup, name, area)
         t,r,b,l = CandidateEntity[0]
         centerEntity = ((l+r)//2,(b+t)//2)
-        movement(centerEntity,CandidateEntity[-1])
+        movement(centerEntity,CandidateEntity[-1],pi3)
 
         # loop over the recognized faces
         #for ((top, right, bottom, left), name) in zip(boxes, names):
