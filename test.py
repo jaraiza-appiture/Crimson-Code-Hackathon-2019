@@ -11,16 +11,16 @@ pi.set_servo_pulsewidth(18, 0)
 time.sleep(1)
 
 print("CCW")
-pi.set_servo_pulsewidth(18, 1000)
-time.sleep(1)
+pi.set_servo_pulsewidth(18, 2000)
+time.sleep(3)
 
 print("CW")
-pi.set_servo_pulsewidth(18, 2000)
-time.sleep(1)
+pi.set_servo_pulsewidth(18, 1000)
+time.sleep(3)
 
 print("stop")
 pi.set_servo_pulsewidth(18, 1500)
 pi.set_PWM_dutycycle(18, 0)
-time.sleep(1)
+time.sleep(3)
 
 
