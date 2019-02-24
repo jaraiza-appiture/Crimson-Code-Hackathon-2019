@@ -6,7 +6,7 @@ Created on Sun Feb 24 00:14:38 2019
 """
 
 import subprocess
-from subprocess import SubprocessError
+
 
 class cerebus:
     
@@ -19,16 +19,16 @@ class cerebus:
         
         if self.lastdir != direction: 
         
-            if self.proc.poll() == None:
-                try:
-                    outs, errs = self.proc.communicate(timeout=15)
-                except TimeoutExpired:
-                    self.proc.kill()
-                    outs, errs = self.proc.communicate()
+#            if self.proc.poll() == None:
+#                try:
+#                    outs, errs = self.proc.communicate(timeout=15)
+#                except TimeoutExpired:
+#                    self.proc.kill()
+#                    outs, errs = self.proc.communicate()
                         
             self.lastdir = direction
-            self.proc = subprocess.Popen("ping" + str(self.lastdir), shell = True)
-            self.proc.call()
+            subprocess.call("ping " + str(self.lastdir), shell = True)
+
             
 c = cerebus("www.google.com")
 
