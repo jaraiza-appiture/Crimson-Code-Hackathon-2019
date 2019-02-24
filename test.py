@@ -36,10 +36,10 @@ try:
 
         if x == "left":
             p0.ChangeDutyCycle(CCW)
-            p1.ChangeDutyCycle(CCW)
+            p1.ChangeDutyCycle(CW)
         elif x == "right":
             p0.ChangeDutyCycle(CW)
-            p1.ChangeDutyCycle(CW)
+            p1.ChangeDutyCycle(CCW)
         elif x == "forward":
             p0.ChangeDutyCycle(CCW)
             p1.ChangeDutyCycle(CW)
@@ -54,7 +54,7 @@ try:
                 time.sleep(1)
         else:
             p0.ChangeDutyCycle(STOP)
-            p1.ChangeDutyCycle(94)
+            p1.stop()
 
 except KeyboardInterrupt:
     p0.stop()
