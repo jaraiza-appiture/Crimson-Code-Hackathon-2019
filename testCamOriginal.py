@@ -9,12 +9,12 @@ import cv2
 import pickle
 import time
 
-AREATHRESH = 2000
-DISTAREATHRESH = 15000
-CENTER = (500,500)
-RESOLUTION = (1000,1000)
+AREATHRESH = 1000 #minimum requirement area before we consider a person in a frame
+DISTAREATHRESH = 9000
+CENTER = (500,350)
+RESOLUTION = (1000,700)
 OWNER = "SamraReduced"
-THRESHOLD= 200 #when to stop moving left or right
+THRESHOLD= 250 #when to stop moving left or right
 def initialize_camera():
     # start the FPS counter
     # initialize the video stream and allow the camera sensor to warm up
@@ -59,6 +59,7 @@ def run_facial_recogniton():
     pi3 = movepi()
     pi3.stop()
     stopthresh = 0
+    stopturning = False
     # loop over frames from the video file stream
     while True: # major loop
         # grab the frame from the threaded video stream and resize it
@@ -119,7 +120,7 @@ def run_facial_recogniton():
                 # will select first entry in the dictionary)
                 name = max(counts, key=counts.get)
                 # update the list of names
-            names.append(name)
+                names.append(name)
         similarEntity = []
         CandidateEntity = None
         #determine the entity to follow 
@@ -131,17 +132,19 @@ def run_facial_recogniton():
            #   pi3.stop()
            #else:
            #   stopthresh+=1
-           print('stopped none found')
            pi3.stop()
+           print('stopped none found')
            fps.update()
            continue
-        stopthresh = 0
+
         if OWNER in names:
-            print('owner detected')
+            print('looking for owner')
+            pi3.stop()
             similarEntity = [((t,r,b,l),n,(r-l)*(b-t)) for ((t,r,b,l),n)  in zip(boxes, names) if OWNER == n]
             simEnt_sorted = sorted(similarEntity,key=lambda x: x[-1],reverse=True)
-            CandidateEntity = simEnt_sorted[0]	
+            CandidateEntity = simEnt_sorted[0]
         else:
+            pi3.stop()
             print('looking for others')
             similarEntity = [((t,r,b,l),n,(r-l)*(b-t)) for ((t,r,b,l),n)  in zip(boxes, names)]
             simEnt_sorted = sorted(similarEntity,key=lambda x: x[-1],reverse=True)
@@ -167,7 +170,7 @@ def run_facial_recogniton():
         #y = t - 15 if t - 15 > 15 else t + 15
         #cv2.putText(frame, CandidateEntity[1], (l, y), cv2.FONT_HERSHEY_SIMPLEX,0.75, (255,0,0), 2)
 
-            #cv2.putText(frame, 'AREA: %d'%((right-left)*(bottom-top)), (left, bottom+20), cv2.FONT_HERSHEY_SIMPLEX,0.75, color, 2)
+        #cv2.putText(frame, 'AREA: %d'%((r-l)*(b-t)), (l, b+20), cv2.FONT_HERSHEY_SIMPLEX,0.75, (255,0,0), 2)
 
         # display the image to our screen
         #cv2.imshow("Frame", frame)
