@@ -35,20 +35,25 @@ try:
         x = input()
 
         if x == "left":
-            p0.ChangeDutyCycle(CCW)
-            p1.ChangeDutyCycle(CW)
+            p0.ChangeDutyCycle(7.5)
+            p1.ChangeDutyCycle(7.5)
+            time.sleep(1.5)
         elif x == "right":
             p0.ChangeDutyCycle(7.5)
             p1.ChangeDutyCycle(7.5)
+            time.sleep(1.5)
         elif x == "forward":
             p0.ChangeDutyCycle(CCW)
             p1.ChangeDutyCycle(CW)
+            time.sleep(1.5)
         elif x == "backward":
             p0.ChangeDutyCycle(CW)
             p1.ChangeDutyCycle(CCW)
+            time.sleep(1.5)
         elif x == "fix":
             p0.ChangeDutyCycle(50)
             p1.ChangeDutyCycle(50)
+            time.sleep(1.5)
         else:
             p0.ChangeDutyCycle(0)
             p1.ChangeDutyCycle(0)
