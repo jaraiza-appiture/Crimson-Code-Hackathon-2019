@@ -23,8 +23,8 @@ try:
             pi.set_servo_pulsewidth(18, 1490)
             pi.set_servo_pulsewidth(13, 1365)
         elif direction == "r":
-            pi.set_servo_pulsewidth(18, 1500)
-            pi.set_servo_pulsewidth(13, 1370)
+            pi.set_servo_pulsewidth(18, 1510)
+            pi.set_servo_pulsewidth(13, 1380)
         elif direction == "s":
             pi.set_servo_pulsewidth(18, 1500)
             pi.set_servo_pulsewidth(13, 1370)
