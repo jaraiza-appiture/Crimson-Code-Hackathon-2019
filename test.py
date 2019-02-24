@@ -4,12 +4,22 @@ import time
 
 pi = pigpio.pi()
 
+print("still")
+pi.set_servo_pulsewidth(18, 1500)
+pi.set_servo_pulsewidth(13, 1370)
+time.sleep(2)
 
-pi.set_servo_pulsewidth(13, 1400)
+print("Left")
+pi.set_servo_pulsewidth(18, 1500)
+pi.set_servo_pulsewidth(13, 1000)
+time.sleep(2)
 
-for i in range(1360, 1380, 5):
-    print ("PW = ", i)
-    pi.set_servo_pulsewidth(13, i)
-    time.sleep(2)
+print("right")
+pi.set_servo_pulsewidth(18, 1500)
+pi.set_servo_pulsewidth(13, 1800)
+time.sleep(2)
 
-
+print("still")
+pi.set_servo_pulsewidth(18, 1500)
+pi.set_servo_pulsewidth(13, 1370)
+time.sleep(2)
