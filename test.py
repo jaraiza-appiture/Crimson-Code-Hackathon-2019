@@ -49,12 +49,12 @@ try:
         elif x == "fix":
             # for i in range(12, 15, 1):
               #  print("DC = %d", i)
-                p1.ChangeDutyCycle(14.5)
+                p1.ChangeDutyCycle(14.55)
                 time.sleep(5)
 
         else:
             p0.ChangeDutyCycle(94.5)
-            p1.ChangeDutyCycle(94.5)
+            p1.ChangeDutyCycle(14.55)
 
 except KeyboardInterrupt:
     p0.stop()
