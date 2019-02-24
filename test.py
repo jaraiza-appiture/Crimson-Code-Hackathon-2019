@@ -50,6 +50,7 @@ try:
             # for i in range(12, 15, 1):
               #  print("DC = %d", i)
                 p1.ChangeDutyCycle(14.55)
+                p0.ChangeDutyCycle(14.55)
                 time.sleep(5)
 
         else:
@@ -57,6 +58,6 @@ try:
             p1.ChangeDutyCycle(14.55)
 
 except KeyboardInterrupt:
-    p0.stop()
-    p1.stop()
+    p0.ChangeDutyCycle(94.5)
+    p1.ChangeDutyCycle(14.55)
     GPIO.cleanup()
