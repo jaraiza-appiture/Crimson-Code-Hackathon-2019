@@ -17,17 +17,17 @@ try:
         # distance_y = sys.argv[3]
 
         if direction == "f":
-            pi.set_servo_pulsewidth(18, 1800)
+            pi.set_servo_pulsewidth(18, 1600)
             pi.set_servo_pulsewidth(13, 1000)
         elif direction == "b":
             pi.set_servo_pulsewidth(18, 1000)
-            pi.set_servo_pulsewidth(13, 1800)
+            pi.set_servo_pulsewidth(13, 1600)
         elif direction == "l":
-            pi.set_servo_pulsewidth(18, 1800)
-            pi.set_servo_pulsewidth(13, 1800)
+            pi.set_servo_pulsewidth(18, 1600)
+            pi.set_servo_pulsewidth(13, 1600)
         elif direction == "r":
-            pi.set_servo_pulsewidth(18, 1000)
-            pi.set_servo_pulsewidth(13, 1000)
+            pi.set_servo_pulsewidth(18, 500)
+            pi.set_servo_pulsewidth(13, 500)
         elif direction == "s":
             pi.set_servo_pulsewidth(18, 1500)
             pi.set_servo_pulsewidth(13, 1370)
