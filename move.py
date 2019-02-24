@@ -1,4 +1,4 @@
-import wiringpi2 as wiringpi
+import wiringpi
 
 wiringpi.piBoardRev()
 

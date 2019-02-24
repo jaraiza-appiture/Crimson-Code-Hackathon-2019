@@ -47,8 +47,10 @@ try:
             p0.ChangeDutyCycle(CW)
             p1.ChangeDutyCycle(CCW)
         elif x == "fix":
-            p0.ChangeDutyCycle(50)
-            p1.ChangeDutyCycle(50)
+            for i in range(0, 101, 1)
+                p0.ChangeDutyCycle(i)
+                p1.ChangeDutyCycle(i)
+                time.sleep(1.5)
         else:
             p0.ChangeDutyCycle(0)
             p1.ChangeDutyCycle(0)
