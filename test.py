@@ -65,9 +65,6 @@ try:
             p0.ChangeDutyCycle(0)
             p1.ChangeDutyCycle(0)
 
-        GPIO.cleanup()
-        connection()
-
 except KeyboardInterrupt:
     p0.stop()
     p1.stop()
