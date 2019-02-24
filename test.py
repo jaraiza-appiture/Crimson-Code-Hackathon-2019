@@ -19,7 +19,8 @@ pi.set_servo_pulsewidth(18, 2000)
 time.sleep(1)
 
 print("stop")
-pi.set_servo_pulsewidth(18, 0)
+pi.set_servo_pulsewidth(18, 1500)
 pi.set_PWM_dutycycle(18, 0)
 time.sleep(1)
+
 
