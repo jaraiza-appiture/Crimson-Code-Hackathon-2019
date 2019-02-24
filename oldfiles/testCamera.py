@@ -11,8 +11,8 @@ import time
 
 AREATHRESH = 2000
 DISTAREATHRESH = 15000
-CENTER = (500,500)
-RESOLUTION = (1000,1000)
+CENTER = (500,250)
+RESOLUTION = (1000,500)
 OWNER = "SamraReduced"
 THRESHOLD= 200 #when to stop moving left or right
 def initialize_camera():
@@ -24,7 +24,7 @@ def initialize_camera():
     fps = FPS().start()
     return vs, fps
 
-def movement(centerEntity,areaEntity,pi):
+def movement(centerEntity,areaEntity):
 	#if face is left of center of the frame
 	#entityChosen = ((t,r,b,l),n,(r-l)*(b-t))
 	diffFaceCenter = centerEntity[0] - CENTER[0]
@@ -32,16 +32,16 @@ def movement(centerEntity,areaEntity,pi):
 	if abs(diffFaceCenter) > THRESHOLD:
 		if diffFaceCenter < 0:
                         print ("moving left")
-                        pi.left()
+                        #pi.left()
 		elif diffFaceCenter >0:
                         print ("moving right")
-                        pi.right()
+                        #pi.right()
 	elif areaEntity < DISTAREATHRESH:
                 print('moving forward')
-                pi.forward()
+                #pi.forward()
 	else:
                 print('stopped good')
-                pi.stop()
+                #pi.stop()
 
 def run_facial_recogniton():
     """
@@ -56,8 +56,8 @@ def run_facial_recogniton():
     data = pickle.loads(open('./encodings.pickle', "rb").read())
     detector = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
     vs, fps = initialize_camera()
-    pi3 = movepi()
-    pi3.stop()
+    #pi3 = movepi()
+    #pi3.stop()
     stopthresh = 0
     # loop over frames from the video file stream
     while True: # major loop
@@ -124,15 +124,15 @@ def run_facial_recogniton():
         CandidateEntity = None
         #determine the entity to follow 
         if not names:
-           #cv2.imshow("Frame", frame)
-           #key = cv2.waitKey(1) & 0xFF
+           cv2.imshow("Frame", frame)
+           key = cv2.waitKey(1) & 0xFF
            #if stopthresh >=2:
            #   stopthresh =0
            #   pi3.stop()
            #else:
            #   stopthresh+=1
            print('stopped none found')
-           pi3.stop()
+           #pi3.stop()
            fps.update()
            continue
         stopthresh = 0
@@ -148,7 +148,7 @@ def run_facial_recogniton():
             CandidateEntity = simEnt_sorted[0] # (dimensionsTup, name, area)
         t,r,b,l = CandidateEntity[0]
         centerEntity = ((l+r)//2,(b+t)//2)
-        movement(centerEntity,CandidateEntity[-1],pi3)
+        movement(centerEntity,CandidateEntity[-1])
 
         # loop over the recognized faces
         #for ((top, right, bottom, left), name) in zip(boxes, names):
@@ -156,26 +156,26 @@ def run_facial_recogniton():
             ## Area = 
             ## if Area < AREATHRESH:
                ## continue
-        #cv2.circle(frame,CENTER,5,(255,0,0),2)
+        cv2.circle(frame,CENTER,5,(255,0,0),2)
             #centerpt1 = ((left+right)//2,(bottom+top)//2)
-        #cv2.circle(frame,centerEntity,5,(255,0,0),2)
+        cv2.circle(frame,centerEntity,5,(255,0,0),2)
             #if name == OWNER:
                #color = (255,0,0)
             #else:
                #color = (0,255,0)
-        #cv2.rectangle(frame, (l, t), (r, b),(255,0,0), 2)
-        #y = t - 15 if t - 15 > 15 else t + 15
-        #cv2.putText(frame, CandidateEntity[1], (l, y), cv2.FONT_HERSHEY_SIMPLEX,0.75, (255,0,0), 2)
+        cv2.rectangle(frame, (l, t), (r, b),(255,0,0), 2)
+        y = t - 15 if t - 15 > 15 else t + 15
+        cv2.putText(frame, CandidateEntity[1], (l, y), cv2.FONT_HERSHEY_SIMPLEX,0.75, (255,0,0), 2)
 
-            #cv2.putText(frame, 'AREA: %d'%((right-left)*(bottom-top)), (left, bottom+20), cv2.FONT_HERSHEY_SIMPLEX,0.75, color, 2)
+        cv2.putText(frame, 'AREA: %d'%((r-l)*(b-t)), (l, b+20), cv2.FONT_HERSHEY_SIMPLEX,0.75, (255,0,0), 2)
 
         # display the image to our screen
-        #cv2.imshow("Frame", frame)
-        #key = cv2.waitKey(1) & 0xFF
+        cv2.imshow("Frame", frame)
+        key = cv2.waitKey(1) & 0xFF
 
         # if the `q` key was pressed, break from the loop
-        #if key == ord("q"):
-        #    break
+        if key == ord("q"):
+            break
 
         # update the FPS counter
         fps.update()
