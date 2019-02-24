@@ -6,8 +6,7 @@ pi = pigpio.pi()
 
 pi.set_mode(12, pigpio.OUTPUT)
 
-print("stop")
-pi.set_servo_pulsewidth(18, 1500)
+pi.set_servo_pulsewidth(18, 2000)
 time.sleep(30)
 
 
