@@ -1,21 +1,44 @@
-import RPi.GPIO as GPIO
-import time as time
+import pigpio
+import time
+import sys
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(18, GPIO.OUT)
+pi = pigpio.pi()
 
-servo = GPIO.PWM(18, 500)
-servo.start(0)
+# PWM 1/4 on
+pi.set_PWM_dutycycle(18, 64)
+pi.set_PWM_dutycycle(13, 64)
+
+#if len(sys.argv) < 2:
+ #   print("ERROR: no values given")
+  #  exit()
+
 try:
     while True:
-        for dc in range(50, 101, 5):
-            servo.ChangeDutyCycle(dc)
-            servo.ChangeDutyCycle(dc)
-            time.sleep(0.5)
-        for dc in range(100, 45, -5):
-            servo.ChangeDutyCycle(dc)
-            time.sleep(0.5)
+        direction = input()
+        # sys.argv[1]
+        # distance_x = sys.argv[2]
+        # distance_y = sys.argv[3]
+
+        if direction == "FORWARD":
+            pi.set_servo_pulsewidth(18, 1800)
+            pi.set_servo_pulsewidth(13, 1000)
+        elif direction == "BACKWARD":
+            pi.set_servo_pulsewidth(18, 1000)
+            pi.set_servo_pulsewidth(13, 1800)
+        elif direction == "LEFT":
+            pi.set_servo_pulsewidth(18, 1800)
+            pi.set_servo_pulsewidth(13, 1800)
+        elif direction == "RIGHT":
+            pi.set_servo_pulsewidth(18, 1000)
+            pi.set_servo_pulsewidth(13, 1000)
+        elif direction == "STOP":
+            pi.set_servo_pulsewidth(18, 1500)
+            pi.set_servo_pulsewidth(13, 1370)
+        else:
+            pi.set_servo_pulsewidth(18, 1500)
+            pi.set_servo_pulsewidth(13, 1370)
+
 except KeyboardInterrupt:
-    pass
-servo.stop()
-GPIO.cleanup();
+    pi.set_servo_pulsewidth(18, 1500)
+    pi.set_servo_pulsewidth(13, 1370)
+    pi.stop()
