@@ -3,10 +3,10 @@ import RPi.GPIO as GPIO
 import time
 
 # Constant values
-STOP = 95 # Duty Cycle that stops servo
+STOP = 95  # Duty Cycle that stops servo
 PWM0 = 12
 PWM1 = 33
-FREQ = 100 # 100Hz
+FREQ = 100  # 100Hz
 CCW = 80
 CW = 85
 
@@ -47,14 +47,14 @@ try:
             p0.ChangeDutyCycle(CW)
             # p1.ChangeDutyCycle(CCW)
         elif x == "fix":
-            p0.stop()
             for i in range(0, 100, 1):
                 print("DC = %d", i)
-                #p1.ChangeDutyCycle(i)
+                p1.ChangeDutyCycle(i)
                 time.sleep(1)
+
         else:
             p0.ChangeDutyCycle(STOP)
-            # p1.stop()
+            p1.ChangeDutyCycle(STOP)
 
 except KeyboardInterrupt:
     p0.stop()
