@@ -47,7 +47,8 @@ try:
             p0.ChangeDutyCycle(CW)
             # p1.ChangeDutyCycle(CCW)
         elif x == "fix":
-            p0.ChangeDutyCycle(0)
+            p0.ChangeDutyCycle(7.5)
+            p1.ChangeDutyCycle(7.5)
         else:
             p0.ChangeDutyCycle(0)
             p1.ChangeDutyCycle(0)
