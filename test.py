@@ -49,6 +49,7 @@ try:
         elif x == "fix":
             p0.stop()
             for i in range(0, 100, 1):
+                print("DC = %d\n", i)
                 p1.ChangeDutyCycle(i)
                 time.sleep(1)
         else:
