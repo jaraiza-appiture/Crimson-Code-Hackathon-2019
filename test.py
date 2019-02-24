@@ -36,19 +36,19 @@ try:
 
         if x == "left":
             p0.ChangeDutyCycle(CCW)
-           # p1.ChangeDutyCycle(CW)
+            p1.ChangeDutyCycle(CW)
         elif x == "right":
-            p0.ChangeDutyCycle(CW)
-            # p1.ChangeDutyCycle(CCW)
-        elif x == "forward":
-            p0.ChangeDutyCycle(CCW)
-            # p1.ChangeDutyCycle(CW)
-        elif x == "backward":
-            p0.ChangeDutyCycle(CW)
-            # p1.ChangeDutyCycle(CCW)
-        elif x == "fix":
             p0.ChangeDutyCycle(7.5)
             p1.ChangeDutyCycle(7.5)
+        elif x == "forward":
+            p0.ChangeDutyCycle(CCW)
+            p1.ChangeDutyCycle(CW)
+        elif x == "backward":
+            p0.ChangeDutyCycle(CW)
+            p1.ChangeDutyCycle(CCW)
+        elif x == "fix":
+            p0.ChangeDutyCycle(50)
+            p1.ChangeDutyCycle(50)
         else:
             p0.ChangeDutyCycle(0)
             p1.ChangeDutyCycle(0)
